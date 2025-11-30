@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sujan Timalsina - Professional Portfolio</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* * GLOBAL STYLES & VARIABLES
+         * =========================
+         */
+        :root {
+            --primary-blue: #007fff;
+            --dark-bg: #0d1117;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #e5e7eb;
+            /* Subtle Background decoration */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 127, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 127, 255, 0.03) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* * LIQUID GLASS STYLES
+         */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* * BUTTON STYLES
+         */
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-solid {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 127, 255, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .btn-solid:hover {
+            background: #0066cc;
+            box-shadow: 0 6px 25px rgba(0, 127, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* * NAV LINK HOVER EFFECT
+         */
+        .nav-link {
+            position: relative;
+            color: #9ca3af; /* gray-400 */
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        /* * HERO TEXT EFFECTS 
+         * Cleaner, sharper look similar to screenshot
+         */
+        .hero-title-white {
+            color: #ffffff;
+            /* Removed heavy glow for cleaner look */
+        }
+        
+        .hero-title-blue {
+            color: #007fff;
+            /* Minimal glow for depth without looking cheap */
+            text-shadow: 0 0 30px rgba(0, 127, 255, 0.3);
+        }
+
+        .section-padding {
+            padding-top: 7rem;
+            padding-bottom: 7rem;
+        }
+
+        /* Star Rating Colors */
+        .star-filled { color: #fbbf24; fill: #fbbf24; }
+        
+        /* Smooth fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#007fff] selection:text-white">
+
+    <!-- 
+        ======================================================================
+        HEADER & NAVIGATION
+        ======================================================================
+    -->
+    <header class="fixed top-0 w-full z-50 glass-panel border-b-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Area -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="relative">
+                        <img src="logo_png.png" alt="Logo" class="relative w-9 h-9 rounded-full border border-white/20 object-cover" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/40x40/007fff/ffffff?text=ST';">
+                    </div>
+                    <span class="font-bold text-lg tracking-wide text-white group-hover:text-[#007fff] transition-colors">Sujan Timalsina</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center space-x-10">
+                    <a href="#about-me" class="nav-link">About</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#portfolio" class="nav-link">Work</a>
+                    <a href="#clients" class="nav-link">Clients</a>
+                    <a href="#contact" class="px-6 py-2.5 rounded-full btn-glass text-sm font-medium border-white/20">Contact Me</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white flex items-center">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-white/5 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 text-center">
+                <a href="#about-me" class="block py-3 text-gray-300 hover:text-[#007fff] hover:bg-white/5 rounded-lg">About</a>
+                <a href="#services" class="block py-3 text-gray-300 hover:text-[#007fff] hover:bg-white/5 rounded-lg">Services</a>
+                <a href="#portfolio" class="block py-3 text-gray-300 hover:text-[#007fff] hover:bg-white/5 rounded-lg">Work</a>
+                <a href="#clients" class="block py-3 text-gray-300 hover:text-[#007fff] hover:bg-white/5 rounded-lg">Clients</a>
+                <a href="#contact" class="block py-3 text-[#007fff] font-bold hover:bg-white/5 rounded-lg">Contact Me</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 
+            ======================================================================
+            HERO SECTION (Page 1)
+            Refined Style: Clean, Bold, Professional.
+            ======================================================================
+        -->
+        <section class="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
+            <!-- Subtle Center Glow behind text -->
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[100px] -z-10"></div>
+
+            <div class="text-center max-w-5xl mx-auto animate-fade-in pt-10">
+                <!-- Badge -->
+                <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-[#007fff]/30 bg-[#007fff]/5 text-[#007fff] text-xs font-semibold mb-10 tracking-widest uppercase">
+                    Graphics & Thumbnail Designer
+                </div>
+                
+                <!-- Main Heading -->
+                <!-- Changed font weight to semibold (600) for "slightly thin" look compared to extrabold -->
+                <h1 class="text-6xl md:text-8xl font-semibold leading-none mb-8 tracking-tight">
+                    <span class="hero-title-white">Sujan</span> <span class="hero-title-blue">Timalsina</span>
+                </h1>
+                
+                <!-- Bio -->
+                <p class="text-lg md:text-xl text-gray-400 mb-12 leading-relaxed max-w-2xl mx-auto font-normal">
+                    Photoshop expert with millions of views. <br class="hidden md:block" />
+                    Designing high-impact thumbnails for <span class="text-gray-200">Nepal's top YouTubers</span>.
+                </p>
+                
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="#portfolio" class="px-8 py-4 rounded-full btn-solid font-semibold text-base flex items-center justify-center">
+                        View My Work
+                        <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                    </a>
+                    <a href="https://ytjobs.co/talent/vitrine/428100" target="_blank" class="px-8 py-4 rounded-full btn-glass font-medium text-base flex items-center justify-center">
+                        <i data-lucide="briefcase" class="mr-2 w-5 h-5 text-gray-400"></i>
+                        YTJobs Profile
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+            ======================================================================
+            ABOUT ME SECTION (Page 2)
+            ======================================================================
+        -->
+        <section id="about-me" class="section-padding bg-[#0d1117] relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <!-- Image Side -->
+                    <div class="relative flex justify-center lg:justify-start">
+                        <div class="relative w-80 h-80 md:w-96 md:h-96">
+                            <!-- Glow -->
+                            <div class="absolute -inset-4 bg-gradient-to-tr from-[#007fff] to-purple-900 rounded-full blur-2xl opacity-20"></div>
+                            
+                            <!-- Profile Image -->
+                            <img src="me.jpg" alt="Sujan Timalsina" class="relative w-full h-full object-cover rounded-3xl border border-white/5 shadow-2xl"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/400x400/1e2329/ffffff?text=Sujan';">
+                            
+                            <!-- Overlay Badge -->
+                            <div class="absolute bottom-6 -right-6 glass-panel px-6 py-4 rounded-2xl border-l-2 border-[#007fff] shadow-2xl">
+                                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Experience</p>
+                                <p class="text-2xl font-bold text-white mt-1">4+ Years</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Side -->
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">About <span class="text-[#007fff]">Me</span></h2>
+                        <div class="space-y-4 text-gray-400 text-lg leading-relaxed font-light">
+                            <p>
+                                Hello! I'm <span class="text-white font-medium">Sujan Timalsina</span>, a passionate graphic designer and content specialist based in Nepal. With a keen eye for aesthetics and user engagement, I help creators and businesses stand out in a crowded digital landscape.
+                            </p>
+                            <p>
+                                My approach combines technical proficiency with creative intuition. Whether it's a high-CTR YouTube thumbnail or a complete brand overhaul, I focus on delivering results that not only look good but perform exceptionally well.
+                            </p>
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-2 gap-4 mt-10">
+                            <div class="glass-panel p-5 rounded-2xl text-center hover:bg-white/5 transition-colors border-white/5">
+                                <h3 class="text-2xl md:text-3xl font-bold text-[#007fff]">225M+</h3>
+                                <p class="text-[10px] text-gray-400 uppercase tracking-wider mt-2">Total Views Generated</p>
+                            </div>
+                            <div class="glass-panel p-5 rounded-2xl text-center hover:bg-white/5 transition-colors border-white/5">
+                                <h3 class="text-2xl md:text-3xl font-bold text-[#007fff]">500+</h3>
+                                <p class="text-[10px] text-gray-400 uppercase tracking-wider mt-2">Thumbnails Designed</p>
+                            </div>
+                            <div class="glass-panel p-5 rounded-2xl text-center hover:bg-white/5 transition-colors border-white/5">
+                                <h3 class="text-2xl md:text-3xl font-bold text-[#007fff]">50+</h3>
+                                <p class="text-[10px] text-gray-400 uppercase tracking-wider mt-2">Happy Clients</p>
+                            </div>
+                            <div class="glass-panel p-5 rounded-2xl text-center hover:bg-white/5 transition-colors border-white/5">
+                                <h3 class="text-2xl md:text-3xl font-bold text-[#007fff]">100%</h3>
+                                <p class="text-[10px] text-gray-400 uppercase tracking-wider mt-2">Satisfaction Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+            ======================================================================
+            EXPERTISE SECTION
+            ======================================================================
+        -->
+        <section id="services" class="section-padding relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-20">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">My Expertise</h2>
+                    <div class="h-1 w-20 bg-[#007fff] mx-auto rounded-full shadow-[0_0_15px_rgba(0,127,255,0.5)]"></div>
+                </div>
+
+                <!-- Centered Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Service 1 -->
+                    <div class="glass-panel p-10 rounded-3xl hover:border-[#007fff]/30 transition-all duration-300 group text-center hover:-translate-y-2">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-[#007fff]/10 flex items-center justify-center mb-8 group-hover:bg-[#007fff] transition-all duration-300">
+                            <i data-lucide="image" class="w-8 h-8 text-[#007fff] group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Thumbnail Design</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">High-CTR designs tailored for gaming and vlog channels to maximize views.</p>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="glass-panel p-10 rounded-3xl hover:border-[#007fff]/30 transition-all duration-300 group text-center hover:-translate-y-2">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-[#007fff]/10 flex items-center justify-center mb-8 group-hover:bg-[#007fff] transition-all duration-300">
+                            <i data-lucide="tv" class="w-8 h-8 text-[#007fff] group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Channel Branding</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Complete visual systems including logos, banners, and color palettes.</p>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="glass-panel p-10 rounded-3xl hover:border-[#007fff]/30 transition-all duration-300 group text-center hover:-translate-y-2">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-[#007fff]/10 flex items-center justify-center mb-8 group-hover:bg-[#007fff] transition-all duration-300">
+                            <i data-lucide="share-2" class="w-8 h-8 text-[#007fff] group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Social Media Graphics</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Eye-catching posts and stories for Instagram, Facebook, and LinkedIn.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+            ======================================================================
+            PORTFOLIO SECTION
+            ======================================================================
+        -->
+        <section id="portfolio" class="section-padding bg-[#0d1117] relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Recent Work</h2>
+                        <p class="text-gray-400">Selected projects for top creators.</p>
+                    </div>
+                    <a href="https://ytjobs.co/talent/vitrine/428100" target="_blank" class="mt-4 md:mt-0 text-[#007fff] hover:text-white transition-colors flex items-center font-medium">
+                        View All Projects <i data-lucide="arrow-up-right" class="ml-1 w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Thumbnail 1 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail1.jpg" alt="Thumbnail 1" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+
+                    <!-- Thumbnail 2 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail2.jpg" alt="Thumbnail 2" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                         <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+
+                    <!-- Thumbnail 3 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail3.jpg" alt="Thumbnail 3" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                         <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+
+                    <!-- Thumbnail 4 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail4.jpg" alt="Thumbnail 4" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                         <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+
+                    <!-- Thumbnail 5 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail5.jpg" alt="Thumbnail 5" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                         <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+
+                    <!-- Thumbnail 6 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail6.jpg" alt="Thumbnail 6" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                         <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+
+                    <!-- Thumbnail 7 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail7.jpg" alt="Thumbnail 7" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                         <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+
+                    <!-- Thumbnail 8 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail8.jpg" alt="Thumbnail 8" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                         <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+
+                    <!-- Thumbnail 9 -->
+                    <div class="group relative rounded-xl overflow-hidden glass-panel border-0 cursor-pointer">
+                        <img src="thumbnail9.jpg" alt="Thumbnail 9" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 aspect-video"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e2329/3b82f6?text=Thumbnail';">
+                         <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#007fff] transition-colors rounded-xl pointer-events-none"></div>
+                    </div>
+                </div>
+                
+                <!-- Extra CTA -->
+                <div class="mt-16 text-center">
+                    <a href="https://ytjobs.co/talent/vitrine/428100" target="_blank" class="inline-flex items-center px-8 py-4 rounded-full btn-glass font-medium text-sm hover:bg-white/10 text-gray-300 hover:text-white">
+                        See More Work on YTJobs
+                        <i data-lucide="external-link" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+            ======================================================================
+            CLIENTS & TESTIMONIALS
+            ======================================================================
+        -->
+        <section id="clients" class="section-padding relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Trusted By Creators</h2>
+                    <p class="text-gray-400">Delivering quality for top industry names.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Javascript Helper for Stars -->
+                    <script>
+                        const renderStars = () => {
+                            let stars = '';
+                            for(let i=0; i<5; i++) stars += `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+                            return stars;
+                        };
+                    </script>
+
+                    <!-- Client 1 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center hover:-translate-y-1 transition duration-300 border-white/5">
+                        <img src="client1.jpg" alt="Tonde Gamer" class="w-16 h-16 rounded-full border-2 border-[#007fff] mb-4 object-cover"
+                             onerror="this.onerror=null; this.src='https://placehold.co/80x80/007fff/ffffff?text=TG';">
+                        <a href="https://youtube.com/@tondegamer?si=3DUL4hjLXXqeK0kR" target="_blank" class="text-lg font-bold text-white hover:text-[#007fff] transition-colors mb-2">Tonde Gamer</a>
+                        <div class="flex gap-1 mb-4" id="stars-1"><script>document.getElementById('stars-1').innerHTML = renderStars();</script></div>
+                        <p class="text-gray-400 text-sm italic leading-relaxed">"Sujan's designs are incredible. The CTR boost was immediate after he updated our thumbnails."</p>
+                    </div>
+
+                    <!-- Client 2 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center hover:-translate-y-1 transition duration-300 border-white/5">
+                        <img src="client2.jpg" alt="Laka Gaming" class="w-16 h-16 rounded-full border-2 border-[#007fff] mb-4 object-cover"
+                             onerror="this.onerror=null; this.src='https://placehold.co/80x80/007fff/ffffff?text=LG';">
+                        <a href="https://www.youtube.com/@LakaGamingz" target="_blank" class="text-lg font-bold text-white hover:text-[#007fff] transition-colors mb-2">Laka Gaming</a>
+                        <div class="flex gap-1 mb-4" id="stars-2"><script>document.getElementById('stars-2').innerHTML = renderStars();</script></div>
+                        <p class="text-gray-400 text-sm italic leading-relaxed">"Professional, fast, and creative. Working with sujan from past few years, Highly recommended from my side"</p>
+                    </div>
+
+                    <!-- Client 3 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center hover:-translate-y-1 transition duration-300 border-white/5">
+                        <img src="client3.jpg" alt="ABHISHEK YT" class="w-16 h-16 rounded-full border-2 border-[#007fff] mb-4 object-cover"
+                             onerror="this.onerror=null; this.src='https://placehold.co/80x80/007fff/ffffff?text=AY';">
+                        <a href="https://youtube.com/@-abhishek_yt?si=O20L3SXT_rIzxWqv" target="_blank" class="text-lg font-bold text-white hover:text-[#007fff] transition-colors mb-2">ABHISHEK YT</a>
+                        <div class="flex gap-1 mb-4" id="stars-3"><script>document.getElementById('stars-3').innerHTML = renderStars();</script></div>
+                        <p class="text-gray-400 text-sm italic leading-relaxed">"Best designer I've worked with. He understands what the audience wants to click on."</p>
+                    </div>
+
+                    <!-- Client 4 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center hover:-translate-y-1 transition duration-300 border-white/5">
+                        <img src="client4.jpg" alt="Chunu Vlogs" class="w-16 h-16 rounded-full border-2 border-[#007fff] mb-4 object-cover"
+                             onerror="this.onerror=null; this.src='https://placehold.co/80x80/007fff/ffffff?text=CV';">
+                        <a href="https://www.youtube.com/@Chunuvlogs" target="_blank" class="text-lg font-bold text-white hover:text-[#007fff] transition-colors mb-2">chunu vlogs</a>
+                        <div class="flex gap-1 mb-4" id="stars-4"><script>document.getElementById('stars-4').innerHTML = renderStars();</script></div>
+                        <p class="text-gray-400 text-sm italic leading-relaxed">"The edits are clean and the thumbnails pop. Highly recommended for vloggers."</p>
+                    </div>
+
+                    <!-- Client 5 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center hover:-translate-y-1 transition duration-300 border-white/5">
+                        <img src="client5.jpg" alt="ZEROTH YT" class="w-16 h-16 rounded-full border-2 border-[#007fff] mb-4 object-cover"
+                             onerror="this.onerror=null; this.src='https://placehold.co/80x80/007fff/ffffff?text=ZY';">
+                        <a href="https://www.youtube.com/@zerothyt10" target="_blank" class="text-lg font-bold text-white hover:text-[#007fff] transition-colors mb-2">ZEROTH YT</a>
+                        <div class="flex gap-1 mb-4" id="stars-5"><script>document.getElementById('stars-5').innerHTML = renderStars();</script></div>
+                        <p class="text-gray-400 text-sm italic leading-relaxed">"Consistently delivers high-quality work. A vital part of my channel's growth."</p>
+                    </div>
+
+                    <!-- Client 6 -->
+                    <div class="glass-panel p-8 rounded-3xl flex flex-col items-center text-center hover:-translate-y-1 transition duration-300 border-white/5">
+                        <img src="client6.jpg" alt="MOTEY FF" class="w-16 h-16 rounded-full border-2 border-[#007fff] mb-4 object-cover"
+                             onerror="this.onerror=null; this.src='https://placehold.co/80x80/007fff/ffffff?text=MF';">
+                        <a href="https://www.youtube.com/@moteyff111" target="_blank" class="text-lg font-bold text-white hover:text-[#007fff] transition-colors mb-2">MOTEY FF</a>
+                        <div class="flex gap-1 mb-4" id="stars-6"><script>document.getElementById('stars-6').innerHTML = renderStars();</script></div>
+                        <p class="text-gray-400 text-sm italic leading-relaxed">"Excellent communication and perfect execution. The new overlay design is fire!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+            ======================================================================
+            CONTACT SECTION
+            ======================================================================
+        -->
+        <section id="contact" class="section-padding relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-panel rounded-3xl p-8 md:p-14 border-t border-white/20 shadow-2xl">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl font-bold text-white mb-4">Let's Work Together</h2>
+                        <p class="text-gray-400">Have a project in mind? Reach out and let's create something amazing.</p>
+                    </div>
+
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                                <input type="text" class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#007fff] focus:ring-1 focus:ring-[#007fff] transition-all placeholder-gray-600" placeholder="Your Name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                                <input type="email" class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#007fff] focus:ring-1 focus:ring-[#007fff] transition-all placeholder-gray-600" placeholder="email@example.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                            <textarea rows="4" class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#007fff] focus:ring-1 focus:ring-[#007fff] transition-all placeholder-gray-600" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="button" class="w-full py-4 rounded-xl btn-solid font-bold text-lg">Send Message</button>
+                    </form>
+
+                    <!-- Social Media Links -->
+                    <div class="mt-14 pt-10 border-t border-white/10">
+                        <p class="text-center text-gray-500 mb-8 text-xs uppercase tracking-widest font-semibold">Connect with me</p>
+                        <div class="flex flex-wrap justify-center gap-6">
+                            <!-- Instagram (Pink on Hover) -->
+                            <a href="https://www.instagram.com/su_jan_timalsina/?__pwa=1" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-pink-500 hover:bg-pink-500/10 hover:scale-110 transition-all duration-300">
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                            </a>
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/sujantimalsina.9" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-[#1877F2] hover:bg-[#1877F2]/10 hover:scale-110 transition-all duration-300">
+                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                            </a>
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/in/sujan-timalsina-bb8556321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-[#0077B5] hover:bg-[#0077B5]/10 hover:scale-110 transition-all duration-300">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                            <!-- WhatsApp -->
+                            <a href="https://wa.link/rbuumc" target="_blank" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-[#25D366] hover:bg-[#25D366]/10 hover:scale-110 transition-all duration-300">
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            </a>
+                            <!-- Gmail -->
+                            <a href="mailto:smarttechzbusiness@gmail.com" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-[#EA4335] hover:bg-[#EA4335]/10 hover:scale-110 transition-all duration-300">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 
+        ======================================================================
+        FOOTER
+        ======================================================================
+    -->
+    <footer class="border-t border-white/5 bg-[#0d1117] pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <a href="#" class="inline-block mb-6">
+                <span class="text-2xl font-bold text-white tracking-tight">Sujan Timalsina</span>
+            </a>
+            <p class="text-gray-500 text-sm mb-4">
+                Professional Thumbnail and Graphics Designer
+            </p>
+            <p class="text-gray-600 text-xs">
+                &copy; <span id="year"></span> Sujan Timalsina. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+        
+        // Update Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
